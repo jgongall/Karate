@@ -1,26 +1,58 @@
 Feature: Check returned users by API
 
-	Background:
-		* url 'https://reqres.in/'
-		* header Accept = 'application/json'
-		* def sleep =
-		"""
-		function(seconds){
-			for(i=0; i<=seconds; i++){
-				java.lang.Thread.sleep(1000);
-			}
-		}
-		"""
-	Scenario: Use $
-		Given path 'api/users/2'
-		When method GET
-		Then status 200
-		And match $.data contains {id:2}
-		And call sleep 10
-		
-	Scenario: Call get test user with id 2
-		Given path 'api/users/2'
-		When method GET
-		Then status 200
-		Then print response
-		And match response == {"data": {"id": 2,"email": "janet.weaver@reqres.in","first_name": "Janet","last_name": "Weaver","avatar": "https://reqres.in/img/faces/2-image.jpg"},"support": {"url": "https://reqres.in/#support-heading","text": "To keep ReqRes free, contributions towards server costs are appreciated!"}}
+  Background:
+    * url 'https://reqres.in/'
+    * header Accept = 'application/json'
+	#crear api key desde https://app.reqres.in/
+    * header x-api-key = 'reqres_16b0b0ad6706451eb9cb05fb00e753bb'
+    * def sleep =
+      """
+      function(seconds){
+      	for(i=0; i<=seconds; i++){
+      		java.lang.Thread.sleep(1000);
+      	}
+      }
+      """
+    * def userDataResponse =
+      """
+      {
+       "data": {
+         "id": 2,
+         "email": "janet.weaver@reqres.in",
+         "first_name": "Janet",
+         "last_name": "Weaver",
+         "avatar": "https://reqres.in/img/faces/2-image.jpg"
+       },
+       "support": {
+         "url": "https://benhowdle.im/first-cto-playbook?utm_source=reqres&utm_medium=json&utm_campaign=referral",
+         "text": "Become a better CTO. A playbook of painful stories and practical advice from a two-time startup CTO."
+       },
+       "_meta": {
+         "powered_by": "ReqRes",
+         "docs_url": "https://app.reqres.in/documentation",
+         "upgrade_url": "https://app.reqres.in/upgrade",
+         "example_url": "https://app.reqres.in/examples/notes-app",
+         "variant": "v1_b",
+         "message": "This is a read-only demo endpoint. Sign up to create your own collections with full CRUD and auth.",
+         "cta": {
+           "label": "Get started",
+           "url": "https://app.reqres.in/upgrade"
+         },
+         "context": "legacy_success"
+       }
+      }
+      """
+
+  Scenario: Use $
+    Given path 'api/users/2'
+    When method GET
+    Then status 200
+    And match $.data contains {id:2}
+    And call sleep 10
+
+  Scenario: Call get test user with id 2
+    Given path 'api/users/2'
+    When method GET
+    Then status 200
+    Then print response
+    And match response == userDataResponse
