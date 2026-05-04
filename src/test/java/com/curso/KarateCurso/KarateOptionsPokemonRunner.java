@@ -9,7 +9,7 @@ class KarateOptionsPokemonRunner {
      */
     @Karate.Test
     Karate testPokemon() {
-        return Karate.run("classpath:23PokeApi.feature").relativeTo(getClass());
+        return Karate.run("classpath:23PokeApi.feature").hook(new MyLoggingHook()).relativeTo(getClass());
     }
 
 }

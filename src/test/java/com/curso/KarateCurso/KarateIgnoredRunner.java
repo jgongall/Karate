@@ -6,7 +6,7 @@ class KarateIgnoredRunner {
     
     @Karate.Test
     Karate testAll() {
-        return Karate.run("classpath:").tags("~@ignore").relativeTo(getClass());
+        return Karate.run("classpath:").hook(new MyLoggingHook()).tags("~@ignore").relativeTo(getClass());
     }
 
 }

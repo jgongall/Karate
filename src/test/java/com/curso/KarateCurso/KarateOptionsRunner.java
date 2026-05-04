@@ -6,7 +6,7 @@ class KarateOptionsRunner {
     
     @Karate.Test
     Karate testCountries() {
-        return Karate.run("classpath:10productCRUD.feature").relativeTo(getClass());
+        return Karate.run("classpath:10usuariosCRUD.feature").hook(new MyLoggingHook()).relativeTo(getClass());
     }
 
 }

@@ -20,7 +20,7 @@ public class TestParallelCucumberReport {
 	@Test
 	public void testParallel() {
 		System.setProperty("mock.env", "karateTesting"); // ensure reset if other tests (e.g. mock) had set env in CI
-		Results results = Runner.path("classpath:").tags("~@ignore").parallel(5);
+		Results results = Runner.path("classpath:").tags("@name=CRUD").outputCucumberJson(true).parallel(5);
 		TestParallelCucumberReport.generateReport(results.getReportDir());
 		assertTrue(results.getFailCount() == 0, results.getErrorMessages());
 	}

@@ -5,7 +5,7 @@ Feature: Check returned users by API
     * header Accept = 'application/json'
 
   Scenario: get list of all users
-    Given path '/public-api/users'
+    Given path 'public/v2/users'
     When method GET
     Then status 200
     And def userResponse = response
@@ -18,13 +18,13 @@ Feature: Check returned users by API
 	# param envio de parametro	
 
   Scenario: get user with id 5816856 by param
-    Given path '/public-api/users'
+    Given path 'public/v2/users'
     And param id = '5816856'
     When method GET
     Then status 200
 
   Scenario: get list all the users having gender Male
-    Given path '/public-api/users'
+    Given path 'public/v2/users'
     And param gender = 'male'
     When method GET
     Then status 200

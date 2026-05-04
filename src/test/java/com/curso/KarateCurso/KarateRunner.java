@@ -6,7 +6,7 @@ class KarateRunner {
     
     @Karate.Test
     Karate testAll() {
-        return Karate.run("classpath:").relativeTo(getClass());
+        return Karate.run("classpath:").hook(new MyLoggingHook()).relativeTo(getClass());
     }
 
 }
